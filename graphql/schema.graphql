@@ -1,0 +1,41 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Date custom scalar type"""
+scalar Date
+
+input KPIInput {
+  score: Float!
+  title: String!
+}
+
+type Mutation {
+  createScorecard(kpis: [KPIInput!]!, newScorecardData: NewScorecardInput!): Scorecard!
+  deleteScorecard(id: Int!): Boolean!
+  updateScorecard(kpis: [KPIInput!]!, newScorecardData: NewScorecardInput!): Scorecard!
+}
+
+input NewScorecardInput {
+  departmentId: Int!
+  divisionId: Int!
+  goal: String!
+  quarter: Float!
+  year: String!
+}
+
+type Query {
+  getScorecardDetails(quarter: Int!, year: String!): Scorecard!
+  getScorecards(quarter: Int!, year: String!): [Scorecard!]!
+}
+
+type Scorecard {
+  createdAt: Date!
+  departmentId: Int!
+  divisionId: Int!
+  goal: String!
+  id: Int!
+  quarter: Float!
+  updatedAt: Date!
+  year: String!
+}
