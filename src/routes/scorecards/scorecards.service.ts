@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { NewScorecardInput, Scorecard } from './dtos';
+import { KPIInput, NewScorecardInput, Scorecard } from './dtos';
 
 const MOCK = {
     id: 42,
@@ -28,11 +28,21 @@ export class ScorecardsService {
     }
 
     async update(...args: any) {
+        if (args.kpis) {
+            await this.updateKPIs(args.kpis);
+        }
+
         return MOCK;
     }
 
     async delete(...args: any) {
         return true;
+    }
+
+    async updateKPIs(kpis: KPIInput[]) {
+        const promises = kpis.map(async (kpi: KPIInput) => await this.update(kpi));
+
+        await Promise.all(promises);
     }
 
     async checkScorecardBeforeCreate(newScorecardData: NewScorecardInput) {
